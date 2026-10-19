@@ -5,7 +5,7 @@
 <!-- todo: conditionally show registerform or loginform based on users clicks and whether or not the user is logged in already  -->
 <div id="registerform">
     <h2>Register</h2>
-    <form [formGroup]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="authService.register(registerForm )">
         <label for="username">Username: </label>
         <input name="username" type="text" formControlName="username">
 
@@ -22,13 +22,13 @@
 </div>
 <div class="loginform">
     <h2>Login</h2>
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="authService.login(loginForm)">
         <label for="username">Username: </label>
         <input name="username" type="text" formControlName="username">
     
         <label for="password">Password: </label>
         <input type="password" name="password" formControlName="password">
         
-        <button>Login</button>
+        <button type="submit">Login</button>
     </form>
 </div>
