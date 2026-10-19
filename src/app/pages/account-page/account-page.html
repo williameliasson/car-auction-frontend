@@ -3,32 +3,42 @@
 <button (click)="authService.login()">log</button> -->
 
 <!-- todo: conditionally show registerform or loginform based on users clicks and whether or not the user is logged in already  -->
-<div id="registerform">
-    <h2>Register</h2>
-    <form [formGroup]="registerForm" (ngSubmit)="authService.register(registerForm )">
-        <label for="username">Username: </label>
-        <input name="username" type="text" formControlName="username">
-
-        <label for="password">Email: </label>
-        <input type="text" name="email" formControlName="email">
-
-        <label for="password">Password: </label>
-        <input type="password" name="password" formControlName="password">
-        
-        <label for="repeat-password">Repeat Password: </label>
-        <input type="password" name="repeat-password" formControlName="repeatPassword">
-        <button type="submit" [disabled]="registerForm.invalid">Register</button>
-    </form>
-</div>
-<div class="loginform">
-    <h2>Login</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="authService.login(loginForm)">
-        <label for="username">Username: </label>
-        <input name="username" type="text" formControlName="username">
+<div class="forms">
+    <div id="registerform">
+        <h2>Register</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="authService.register(registerForm )">
+            <label for="username">Username: </label>
+            <input name="username" type="text" formControlName="username">
     
-        <label for="password">Password: </label>
-        <input type="password" name="password" formControlName="password">
+            <label for="password">Email: </label>
+            <input type="text" name="email" formControlName="email">
+    
+            <label for="password">Password: </label>
+            <input type="password" name="password" formControlName="password">
+            
+            <label for="repeat-password">Repeat Password: </label>
+            <input type="password" name="repeat-password" formControlName="repeatPassword">
+            <button type="submit" [disabled]="registerForm.invalid">Register</button>
+        </form>
+    </div>
+    <div class="loginform">
+        <h2>Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="authService.login(loginForm)">
+            <label for="username">Username: </label>
+            <input name="username" type="text" formControlName="username">
         
-        <button type="submit">Login</button>
-    </form>
+            <label for="password">Password: </label>
+            <input type="password" name="password" formControlName="password">
+            
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </div>
+@if (!authService.currentUser()) {
+    <h1>No user</h1>
+} @else {
+    <div class="accountInfo" >
+        <h1>Username: {{authService.currentUser()!.username}}</h1>
+        <span>{{authService.currentUser()!.email}}</span>
+    </div>
+}

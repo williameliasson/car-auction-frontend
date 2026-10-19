@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 
@@ -11,7 +11,9 @@ import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 export class AccountPage {
   authService = inject(AuthService)
   private fb = inject(FormBuilder);
-  
+  ngOnInit(): void {
+    this.authService.fetchCurrentUser();
+  }
   // register form
   registerForm = this.fb.group({
     username:       ['',  Validators.required],
