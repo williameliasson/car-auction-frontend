@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-account-page',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './account-page.html',
   styleUrl: './account-page.scss',
 })
@@ -15,6 +15,7 @@ export class AccountPage {
   // register form
   registerForm = this.fb.group({
     username:       ['',  Validators.required],
+    email:          ['', [Validators.required, Validators.email]],
     password:       ['', [Validators.required, Validators.minLength(8)]],
     repeatPassword: ['', [Validators.required, Validators.minLength(8)]]
   }, {validators: (group) => {

@@ -5,7 +5,7 @@
 <!-- todo: conditionally show registerform or loginform based on users clicks and whether or not the user is logged in already  -->
 <div id="registerform">
     <h2>Register</h2>
-    <form>
+    <form [formGroup]="registerForm">
         <label for="username">Username: </label>
         <input name="username" type="text" formControlName="username">
 
