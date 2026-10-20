@@ -7,6 +7,6 @@ import { NewAuctionPage } from './pages/new-auction-page/new-auction-page';
 export const routes: Routes = [
     {"path": "", "component": HomePage},
     {"path": "account", "component": AccountPage},
-    {"path": "auction", "component": AuctionPage},
+    {"path": "auction/:id", "component": AuctionPage},
     {"path": "new-auction", "component": NewAuctionPage},
 ];

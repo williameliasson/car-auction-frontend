@@ -37,4 +37,8 @@ export class AuctionService {
       }}
     )
   }
+
+  fetchAuction(id: number){
+    return this.http.get<AuctionDisplay>(env.apiUrl + "/auctions/" + id, {observe: "response"})
+  }
 }
