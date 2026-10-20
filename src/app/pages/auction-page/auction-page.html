@@ -1,4 +1,47 @@
 <h1>Auktionssida</h1>
-<div>
-    {{auction()?.title}}
+
+<!-- the "window" -->
+<div class="window">
+    <!-- top bar of the "window". ca 10% height-->
+    <div class="top-bar">
+        <span>{{auction()?.title}}</span>
+        <span>{{auction()?.modelYear}}</span>
+    </div>
+    
+    <!-- bottom half, holding main content. ca 90% height -->
+    <div class="rightleft-box">
+        <!-- left part ca 40% of width. Has image placeholder and description-->
+        <div class="left-box"> 
+            <img src="" alt="">
+            <p>{{auction()?.description}}</p>
+        </div>
+        
+        <!-- right part ca 60% of width. Has -->
+        <div class="right-box">
+            <div class="leading-bid-box">
+                <h3>40 000 SEK <span class="blink">...</span></h3>
+                <span class="time-left">30m kvar</span>
+            </div>
+            <div class="bidding-box">
+                <form action="">
+                    <input type="text" name="" id="">
+                </form>
+                <!-- todo: quickbuttons for increment / decrement-->
+                <button>Buda</button>
+            </div>
+            <div class="bid-list">
+                <!-- @for (item of items; track $index) {
+
+                } -->
+                <div class="bid-row">
+                    <span>Budare1</span>
+                    <span>40 000 SEK</span>
+                </div>
+                <div class="bid-row">
+                    <span>Budare2</span>
+                    <span>35 000 SEK</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

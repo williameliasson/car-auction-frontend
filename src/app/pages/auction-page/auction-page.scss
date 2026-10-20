@@ -1,0 +1,80 @@
+// development only
+div {
+    outline: 0.5px solid red;
+}
+
+.window{
+    outline: 1px solid black;
+    display: flexbox;
+    flex-direction: column;
+    height: 400px;
+    position: relative;
+}
+
+.top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; // push them to the sides
+}
+
+.rightleft-box{
+    display: flex;
+    flex-direction: row;
+}
+
+.left-box {
+    width: 40%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    img {
+        background-color: aqua ;
+        height: 40%;
+        width: auto;
+        aspect-ratio: 1;
+    }
+    p {
+        height: 40%
+    }
+}
+
+.right-box{
+    position: relative;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.leading-bid-box{
+    height: 20%;
+}
+
+.bidding-box{
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+}
+
+.bid-list{
+    height:60%;
+    display: flex;
+    flex-direction: column;
+    .bid-row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+// src: https://www.html-code-generator.com/css/animations/blink
+/* CSS Blink Animation */
+.blink {
+    animation: blink-animation 1s steps(1, start) infinite;
+}
+
+@keyframes blink-animation {
+    50% {
+        visibility: hidden;
+    }
+}

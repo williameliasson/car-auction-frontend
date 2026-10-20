@@ -12,7 +12,9 @@ import { env } from '../../env/env';
 //     Integer odometerKm
 
 export type AuctionDisplay = {
+  id: number,
   title: string,
+  description: string,
   plate: string | null,
   deadline: string,
   makeName: string,
