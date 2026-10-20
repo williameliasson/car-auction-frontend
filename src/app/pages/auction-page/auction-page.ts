@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-auction-page',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './auction-page.html',
   styleUrl: './auction-page.scss',
 })
-export class AuctionPage {}
+export class AuctionPage {
+
+}

@@ -1,1 +1,6 @@
-<p>home-page works!</p>
+<h1>Auktioner</h1>
+<div>
+    @for (auction of auctionService.auctions(); track $index) {
+        <app-auction-card [auction]="auction" />
+    }
+</div>
