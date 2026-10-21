@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { env } from '../../env/env';
+import { FormGroup } from '@angular/forms';
+import { form } from '@angular/forms/signals';
+import { Router } from '@angular/router';
 
 // String title,
 //     String description,
@@ -28,6 +31,7 @@ export type AuctionDisplay = {
 })
 export class AuctionService {
   private http = inject(HttpClient);
+  private router = inject(Router);
   auctions = signal<AuctionDisplay[]>([]);
 
   fetchAuctions(){
@@ -44,7 +48,16 @@ export class AuctionService {
     return this.http.get<AuctionDisplay>(env.apiUrl + "/auctions/" + id, {observe: "response"})
   }
 
-  createAuction(){
-    
+  createAuction(form: FormGroup){
+    const dateFixedForm = {
+      ...form.value,
+      deadline: new Date(form.value.deadline).toISOString()
+    }
+    this.http.post<AuctionDisplay>(env.apiUrl + "/auctions", dateFixedForm, {withCredentials: true}).subscribe({
+      next: (response) => {
+        if (!response) return;
+        this.router.navigate(["/auction", response.id])
+      }
+    })
   }
 }

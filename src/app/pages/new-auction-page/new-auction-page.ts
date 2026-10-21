@@ -19,10 +19,11 @@ export class NewAuctionPage {
   }
   newAuctionForm = this.fb.group({
     title: ['', Validators.required],
+    description: ['', Validators.required],
     plate: ['', Validators.required],
     deadline: ['', Validators.required],
     make_id: ['', Validators.required],
-    modelYear: ['', Validators.required],
-    odometerKm: ['', Validators.required],
+    modelYear: [0, Validators.required],
+    odometerKm: [0, Validators.required],
   })
 }

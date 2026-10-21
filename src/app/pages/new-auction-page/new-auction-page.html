@@ -1,10 +1,38 @@
 <h1>Skapa ny auktion</h1>
 <div>
-    <form [formGroup]="newAuctionForm" (ngSubmit)="auctionService.createAuction()">
+    <form [formGroup]="newAuctionForm" (ngSubmit)="auctionService.createAuction(newAuctionForm)">
+        <label for="title">Titel: </label>
+        <input type="text" name="title" id="title" formControlName="title">
+        <br>
+
+        <label for="description">Beskrivning: </label>
+        <input type="text" name="description" id="description" formControlName="description">
+        <br>
+
+        <label for="plate">Regnummer: </label>
+        <input type="text" name="plate" id="plate" formControlName="plate">
+        <br>
+
+        <label for="deadline">Avslutsdatum: </label>
+        <input type="datetime-local" name="deadline" id="deadline" formControlName="deadline">
+        <br>
+
+        <label for="make_id">Märke: </label>
         <select name="make_id" id="make_id" formControlName="make_id">
             @for (carMake of makeService.carMakes(); track $index) {
                 <option value="{{carMake.id}}">{{carMake.name}}</option>
             }
         </select>
+        <br>
+
+        <label for="modelYear">Modellår: </label>
+        <input type="number" name="modelYear" id="modelYear" formControlName="modelYear">
+        <br>
+
+        <label for="odometerKm">Mätarställning (km): </label>
+        <input type="number" name="odometerKm" id="odometerKm" formControlName="odometerKm">
+        <br>
+
+        <button type="submit">Skapa</button>
     </form>
 </div>
