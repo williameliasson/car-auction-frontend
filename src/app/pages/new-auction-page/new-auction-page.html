@@ -1,1 +1,10 @@
-<p>new-auction-page works!</p>
+<h1>Skapa ny auktion</h1>
+<div>
+    <form [formGroup]="newAuctionForm" (ngSubmit)="auctionService.createAuction()">
+        <select name="make_id" id="make_id" formControlName="make_id">
+            @for (carMake of makeService.carMakes(); track $index) {
+                <option value="{{carMake.id}}">{{carMake.name}}</option>
+            }
+        </select>
+    </form>
+</div>
