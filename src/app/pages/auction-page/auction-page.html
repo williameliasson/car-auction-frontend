@@ -19,8 +19,15 @@
         <!-- right part ca 60% of width. Has -->
         <div class="right-box">
             <div class="leading-bid-box">
-                <h3>40 000 SEK <span class="blink">...</span></h3>
+                <h3>{{prettify(40000)}} SEK <span class="blink">...</span></h3>
                 <span class="time-left">30m kvar</span>
+            </div>
+            <div class="valuation-box">
+                @if (auction()?.valuationMin && auction()?.valuationMax) {
+                    <span>Ungefärligt värde: {{prettify(auction()?.valuationMin)}} - {{prettify(auction()?.valuationMax)}} kr</span>
+                } @else {
+                    <span>Okänt ungefärligt värde</span>
+                }
             </div>
             <div class="bidding-box">
                 <form action="">

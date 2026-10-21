@@ -1,0 +1,25 @@
+
+// Split into thousands, e.g. prettifyNumber(1234) => "1 234"
+// slightly overcomplicated maybe but was fun to do
+export function prettify(num: number | string | undefined, index: number=-1, charsLeftThisBlock: number=3): string {
+    if (num == undefined) return "";
+
+    let numString = num.toString();
+    const charToInsert = " ";
+    if (index == -1) { // start of chain
+        index = numString.length; // set index to be last pointing to after the last char
+    }
+
+    if (charsLeftThisBlock == 0){
+        // src: https://www.geeksforgeeks.org/javascript/how-to-insert-a-string-at-a-specific-index-in-javascript/
+        numString = numString.slice(0, index) + charToInsert + numString.slice(index)
+        charsLeftThisBlock = 3 // reset "block" counter
+    }
+
+    if (index == 0) { // when we have reached the start of the string, return the grand result
+        return numString;
+    }
+    return prettify(numString, index-1, charsLeftThisBlock-1);
+    // prett(1234) -> prett("1234", 3) -> prett("1234", 2) -> prett("1234", 1)
+    // prett(12345) -> prett("12345", 4, 2) -> prett("12345", 3, 1) -> prett("12345", 2, 3) -> prett("12 345", 1, 2) -> prett("12 345", 0, 1) RETURN RESULT<--
+}

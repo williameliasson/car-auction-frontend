@@ -22,7 +22,9 @@ export type AuctionDisplay = {
   deadline: string,
   makeName: string,
   modelYear: number,
-  odometerKm: number
+  odometerKm: number,
+  valuationMin: number,
+  valuationMax: number
 }
 
 

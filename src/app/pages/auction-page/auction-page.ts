@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuctionDisplay, AuctionService } from '../../services/auction-service';
+import { prettify } from '../../utils';
 
 @Component({
   selector: 'app-auction-page',
@@ -12,6 +13,7 @@ export class AuctionPage {
   // src: https://angular.dev/guide/routing/read-route-state
   auctionId = signal<number | null>(null);
   auction = signal<AuctionDisplay | null>(null);
+  prettify = prettify;
 
   private route = inject(ActivatedRoute);
   auctionService = inject(AuctionService);
