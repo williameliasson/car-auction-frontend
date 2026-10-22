@@ -19,7 +19,7 @@
         <!-- right part ca 60% of width. Has -->
         <div class="right-box">
             <div class="leading-bid-box">
-                <h3>{{prettify(40000)}} SEK <span class="blink">...</span></h3>
+                <h3>{{prettify(highestBidAmount())}} SEK <span class="blink">...</span></h3>
                 <span class="time-left">30m kvar</span>
             </div>
             <div class="valuation-box">
@@ -42,17 +42,13 @@
                 </div>
             </div>
             <div class="bid-list">
-                <!-- @for (item of items; track $index) {
+                @for (bid of auction()?.bids; track $index) {
+                    <div class="bid-row">
+                        <span>{{bid.pseudonym}}</span>
+                        <span>{{prettify(bid.amount)}} SEK</span>
+                    </div>
 
-                } -->
-                <div class="bid-row">
-                    <span>Budare1</span>
-                    <span>40 000 SEK</span>
-                </div>
-                <div class="bid-row">
-                    <span>Budare2</span>
-                    <span>35 000 SEK</span>
-                </div>
+                }
             </div>
         </div>
     </div>
