@@ -26,8 +26,15 @@ export type AuctionDisplay = {
   valuationMin: number,
   valuationMax: number,
   requestingUserIsOwner: boolean,
+  bids: BidDisplay[]
 }
 
+export type BidDisplay = {
+  auctionId: number,
+  bidId: number,
+  pseudonym: string,
+  amount: number,
+}
 
 @Injectable({
   providedIn: 'root',
