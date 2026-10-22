@@ -30,11 +30,16 @@
                 }
             </div>
             <div class="bidding-box">
-                <form action="">
-                    <input type="text" name="" id="">
-                </form>
-                <!-- todo: quickbuttons for increment / decrement-->
-                <button>Buda</button>
+                <div>
+                    <form action="">
+                        <input type="text" name="" id="">
+                    </form>
+                    <!-- todo: quickbuttons for increment / decrement-->
+                    <button>Buda</button>
+                </div>
+                <div>
+                    <span>Du kan maximalt buda {{prettify(authService.currentUser()?.availableBalance)}} SEK</span>
+                </div>
             </div>
             <div class="bid-list">
                 <!-- @for (item of items; track $index) {
