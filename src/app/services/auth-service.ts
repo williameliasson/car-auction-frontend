@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 export type UserDTO = {
   username: string,
   email: string,
-  // maybe current balance as number
+  balance: number,
+  availableBalance: number,
 }
 @Injectable({
   providedIn: 'root',

@@ -24,7 +24,8 @@ export type AuctionDisplay = {
   modelYear: number,
   odometerKm: number,
   valuationMin: number,
-  valuationMax: number
+  valuationMax: number,
+  requestingUserIsOwner: boolean,
 }
 
 

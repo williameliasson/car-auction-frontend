@@ -40,5 +40,9 @@
     <div class="accountInfo" >
         <h1>Username: {{authService.currentUser()!.username}}</h1>
         <span>{{authService.currentUser()!.email}}</span>
+        <br>
+        <span>Saldo: {{authService.currentUser()!.balance}}</span>
+        <br>
+        <span>Tillgängligt saldo: {{authService.currentUser()!.availableBalance}}</span>
     </div>
 }
