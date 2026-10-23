@@ -20,7 +20,7 @@
         <div class="right-box">
             <div class="leading-bid-box">
                 <h3>{{prettify(highestBidAmount())}} SEK <span class="blink">...</span></h3>
-                <span class="time-left">30m kvar</span>
+                <span class="time-left">{{secondsToHms(timeLeft())}} kvar</span>
             </div>
             <div class="valuation-box">
                 @if (auction()?.valuationMin && auction()?.valuationMax) {

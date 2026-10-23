@@ -1,15 +1,16 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuctionDisplay, AuctionService, BidDisplay } from '../../services/auction-service';
-import { prettify } from '../../utils';
+import { prettify, secondsToHms } from '../../utils';
 import { AuthService } from '../../services/auth-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BidService } from '../../services/bid-service';
 import { WebsocketService } from '../../services/websocket-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-auction-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './auction-page.html',
   styleUrl: './auction-page.scss',
 })
@@ -18,6 +19,20 @@ export class AuctionPage {
   auctionId = signal<number | null>(null);
   auction = signal<AuctionDisplay | null>(null);
   bids = signal<BidDisplay[]>([]);
+  deadline = signal<Date | null>(null);
+  timeNow = signal<Date>(new Date());
+  timeLeft = computed<number>(() => {
+    if (this.deadline() == null || this.timeNow() == null) {
+      return 0;
+      // return new Date(0);
+    }
+    if (this.timeNow() >= this.deadline()!){
+      return 0;
+      // return new Date(0);
+    }
+    let seconds: number = (this.deadline()!.getTime() - this.timeNow()!.getTime())/1000;
+    return seconds;
+  })
   
   authService = inject(AuthService);
   bidService = inject(BidService)
@@ -25,6 +40,7 @@ export class AuctionPage {
   websocketService = inject(WebsocketService)
 
   prettify = prettify;
+  secondsToHms = secondsToHms;
 
   suggestedBidIncrementAmount = 1000;
   
@@ -48,6 +64,13 @@ export class AuctionPage {
   auctionService = inject(AuctionService);
 
   ngOnInit(): void{
+    setInterval(() => {
+      const now = new Date(Date.now());
+      this.timeNow.set(now);
+      console.log(this.timeNow().getTime())
+      console.log(this.deadline()?.getTime())
+      console.log(this.timeLeft());
+    }, 500);
     const auctionId: string | null = this.route.snapshot.paramMap.get("id");
     if (auctionId == null) return; // todo: handle error
     this.auctionId.set(parseInt(auctionId));
@@ -56,6 +79,7 @@ export class AuctionPage {
       {next: (data) => {
         this.auction.set(data.body);
         this.bids.set(data.body!.bids);
+        this.deadline.set(new Date(data.body!.deadline))
       }}
     );
     this.websocketService.subscribe("/topic/auction/" + auctionId + "/newBid", (message: any) => this.onNewBidReceived(message))    
