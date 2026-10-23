@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="bid-list">
-                @for (bid of auction()?.bids; track $index) {
+                @for (bid of bids(); track $index) {
                     <div class="bid-row">
                         <span>{{bid.pseudonym}}</span>
                         <span>{{prettify(bid.amount)}} SEK</span>
