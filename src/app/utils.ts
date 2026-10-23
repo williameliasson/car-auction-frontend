@@ -23,3 +23,22 @@ export function prettify(num: number | string | undefined, index: number=-1, cha
     // prett(1234) -> prett("1234", 3) -> prett("1234", 2) -> prett("1234", 1)
     // prett(12345) -> prett("12345", 4, 2) -> prett("12345", 3, 1) -> prett("12345", 2, 3) -> prett("12 345", 1, 2) -> prett("12 345", 0, 1) RETURN RESULT<--
 }
+
+
+// Src: https://dev.to/alexparra/js-seconds-to-hh-mm-ss-22o6
+const SECONDS_PER_DAY = 86400;
+const HOURS_PER_DAY = 24;
+
+/**
+ * Convert seconds to HH:MM:SS
+ * If seconds exceeds 24 hours, hours will be greater than 24 (30:05:10)
+ *
+ * @param {number} seconds
+ * @returns {string}
+ */
+export const secondsToHms = (seconds: number): string => {
+  const days = Math.floor(seconds / SECONDS_PER_DAY);
+  const remainderSeconds = seconds % SECONDS_PER_DAY;
+  const hms = new Date(remainderSeconds * 1000).toISOString().substring(11, 19);
+  return hms.replace(/^(\d+)/, h => `${Number(h) + days * HOURS_PER_DAY}`.padStart(2, '0'));
+};
