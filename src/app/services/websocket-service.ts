@@ -19,11 +19,18 @@ export class WebsocketService {
   }
 
   subscribe(topic: string, onMessageReceived: (message: any) => void){
-    if (!this.stompClient || !this.stompClient.connected){
+    if (!this.stompClient){
       this.connect()
-      return;
     }
-    this.stompClient.subscribe(topic, onMessageReceived);
+    if (this.stompClient.connected){
+      this.stompClient.subscribe(topic, onMessageReceived);
+    } else {
+      this.stompClient.connect({}, () => {
+        this.stompClient.subscribe(topic, onMessageReceived)
+      })
+
+    }
+      
   }
 
   disconnect(){

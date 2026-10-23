@@ -58,11 +58,13 @@ export class AuctionPage {
         this.bids.set(data.body!.bids);
       }}
     );
-    this.websocketService.subscribe("/topic/auction/" + auctionId + "/newBid", this.onNewBidReceived)    
+    this.websocketService.subscribe("/topic/auction/" + auctionId + "/newBid", (message: any) => this.onNewBidReceived(message))    
   }
 
   onNewBidReceived(message: any){
-    const bid: BidDisplay = JSON.parse(message)
+    console.log("msg")
+    const bid: BidDisplay = JSON.parse(message.body)
+    console.log(bid)
     this.bids.update((bids) => [...bids, bid])
   }
 }
