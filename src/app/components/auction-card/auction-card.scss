@@ -1,12 +1,15 @@
 .box{
-    outline: 1px solid black;
 }
 
 .card{
     width: 400px;
     height: 200px;
-
+    
     margin:5px;
+    outline: 1px solid black;
+    &:hover{
+        outline: 2px solid black;
+    }
 }
 
 .top-box{
