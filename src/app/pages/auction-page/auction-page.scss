@@ -1,13 +1,11 @@
-// development only
-div {
-    outline: 0.5px solid red;
+.box {
+    outline: 1px solid black;
 }
 
 .window{
     outline: 1px solid black;
     display: flexbox;
     flex-direction: column;
-    height: 400px;
     position: relative;
 }
 
@@ -29,6 +27,7 @@ div {
     flex-direction: column;
     img {
         background-color: aqua ;
+        object-fit: cover;
         height: 40%;
         width: auto;
         aspect-ratio: 1;
@@ -77,4 +76,12 @@ div {
     50% {
         visibility: hidden;
     }
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+* {
+    padding:3px;
 }

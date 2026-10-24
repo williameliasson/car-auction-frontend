@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AuctionDisplay } from '../../services/auction-service';
 import { RouterLink } from '@angular/router';
+import { prettify } from '../../utils';
 
 @Component({
   selector: 'app-auction-card',
@@ -10,4 +11,6 @@ import { RouterLink } from '@angular/router';
 })
 export class AuctionCard {
   @Input() auction!: AuctionDisplay;
+  prettify = prettify
+  Math = Math;
 }

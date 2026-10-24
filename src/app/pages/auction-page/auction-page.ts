@@ -67,9 +67,6 @@ export class AuctionPage {
     setInterval(() => {
       const now = new Date(Date.now());
       this.timeNow.set(now);
-      console.log(this.timeNow().getTime())
-      console.log(this.deadline()?.getTime())
-      console.log(this.timeLeft());
     }, 500);
     const auctionId: string | null = this.route.snapshot.paramMap.get("id");
     if (auctionId == null) return; // todo: handle error

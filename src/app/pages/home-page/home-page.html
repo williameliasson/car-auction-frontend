@@ -1,5 +1,5 @@
 <h1>Auktioner</h1>
-<div>
+<div class="auction-card-list">
     @for (auction of auctionService.auctions(); track $index) {
         <app-auction-card [auction]="auction" />
     }
