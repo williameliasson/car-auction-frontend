@@ -33,6 +33,9 @@ export class AuctionPage {
     let seconds: number = (this.deadline()!.getTime() - this.timeNow()!.getTime())/1000;
     return seconds;
   })
+  requestingUserIsAuctionOwner = computed<boolean>(() => {
+    return this.auction()?.ownerPseudonym == this.auction()?.requestingUserPseudonym
+  })
   
   authService = inject(AuthService);
   bidService = inject(BidService)

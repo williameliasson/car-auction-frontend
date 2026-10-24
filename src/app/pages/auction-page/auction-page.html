@@ -1,5 +1,5 @@
 <!-- the "window" -->
-<div class="window">
+<div class="window" [ngClass]="{'user-is-owner': requestingUserIsAuctionOwner()}">
     <!-- top bar of the "window". ca 10% height-->
     <div class="top-bar">
         <h2>{{auction()?.title}}</h2>
@@ -29,7 +29,7 @@
                 }
             </div>
             <!-- Hide the bidding form if the auction deadline has passed -->
-            <div class="bidding-box box" [ngClass]="{'hidden': timeLeft() <= 0}">
+            <div class="bidding-box box" [ngClass]="{'hidden': timeLeft() <= 0 || requestingUserIsAuctionOwner()}">
                 <div>
                     @if (auction()) {
                         <form [formGroup]="newBidForm" (ngSubmit)="bidService.createBid(newBidForm, auction()!.id)">
