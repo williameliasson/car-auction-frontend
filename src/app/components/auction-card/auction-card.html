@@ -1,4 +1,4 @@
-<div class="card box" [routerLink]="['/auction', auction.id]">
+<div class="card box" [ngClass]="{'user-is-owner' : auction.ownerPseudonym == auction.requestingUserPseudonym}" [routerLink]="['/auction', auction.id]">
     <div class="top-box">
         <p>{{auction.title}}</p>
         <p>{{auction.modelYear}}</p>

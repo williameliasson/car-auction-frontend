@@ -25,7 +25,8 @@ export type AuctionDisplay = {
   odometerKm: number,
   valuationMin: number,
   valuationMax: number,
-  requestingUserIsOwner: boolean,
+  ownerPseudonym: string,
+  requestingUserPseudonym: string | null,
   bids: BidDisplay[]
 }
 
@@ -45,7 +46,7 @@ export class AuctionService {
   auctions = signal<AuctionDisplay[]>([]);
 
   fetchAuctions(){
-    this.http.get<AuctionDisplay[]>(env.apiUrl + "/auctions", {observe: "response"}).subscribe(
+    this.http.get<AuctionDisplay[]>(env.apiUrl + "/auctions", {withCredentials: true, observe: "response"}).subscribe(
       {next: (data) => {
         if (data.status == 200 && data.body) {
           this.auctions.set(data.body);
@@ -55,7 +56,7 @@ export class AuctionService {
   }
 
   fetchAuction(id: number){
-    return this.http.get<AuctionDisplay>(env.apiUrl + "/auctions/" + id, {observe: "response"})
+    return this.http.get<AuctionDisplay>(env.apiUrl + "/auctions/" + id, {withCredentials: true, observe: "response"})
   }
 
   createAuction(form: FormGroup){
