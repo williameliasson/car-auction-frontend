@@ -27,6 +27,7 @@
     flex-direction: column;
     img {
         background-color: aqua ;
+        object-fit: cover;
         height: 40%;
         width: auto;
         aspect-ratio: 1;

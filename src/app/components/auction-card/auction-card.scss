@@ -1,5 +1,5 @@
-.box{
-}
+// .box{
+// }
 
 .card{
     width: 400px;
@@ -17,7 +17,8 @@
     flex-direction: row;
     justify-content: space-between;
     height:20%;
-    outline: 1px solid red;
+    outline: 1px solid black;
+    padding: 4px;
 }
 
 .left-right-box{
@@ -35,6 +36,7 @@
         height:50%;
         outline:1px solid black;
         aspect-ratio: 1;
+        object-fit: cover;
     }
 }
 
