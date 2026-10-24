@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
+import { prettify } from '../../utils';
 
 @Component({
   selector: 'app-account-page',
@@ -11,6 +12,9 @@ import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 export class AccountPage {
   authService = inject(AuthService)
   private fb = inject(FormBuilder);
+
+  prettify = prettify;
+
   ngOnInit(): void {
     this.authService.fetchCurrentUser();
   }
