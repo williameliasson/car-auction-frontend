@@ -1,13 +1,11 @@
-// development only
-div {
-    outline: 0.5px solid red;
+.box {
+    outline: 1px solid black;
 }
 
 .window{
     outline: 1px solid black;
     display: flexbox;
     flex-direction: column;
-    height: 400px;
     position: relative;
 }
 
@@ -77,4 +75,12 @@ div {
     50% {
         visibility: hidden;
     }
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+* {
+    padding:3px;
 }

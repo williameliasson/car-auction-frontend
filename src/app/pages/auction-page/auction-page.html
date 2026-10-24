@@ -1,11 +1,9 @@
-<h1>Auktionssida</h1>
-
 <!-- the "window" -->
 <div class="window">
     <!-- top bar of the "window". ca 10% height-->
     <div class="top-bar">
-        <span>{{auction()?.title}}</span>
-        <span>{{auction()?.modelYear}}</span>
+        <h2>{{auction()?.title}}</h2>
+        <h2>{{auction()?.modelYear}}</h2>
     </div>
     
     <!-- bottom half, holding main content. ca 90% height -->
@@ -13,23 +11,25 @@
         <!-- left part ca 40% of width. Has image placeholder and description-->
         <div class="left-box"> 
             <img src="" alt="">
-            <p>{{auction()?.description}}</p>
+            <p class="box">{{auction()?.description}}</p>
         </div>
         
         <!-- right part ca 60% of width. Has -->
-        <div class="right-box">
+        <div class="right-box box">
             <div class="leading-bid-box">
-                <h3>{{prettify(highestBidAmount())}} SEK <span class="blink">...</span></h3>
+                <!-- src: https://www.geeksforgeeks.org/angular-js/angular-conditional-class-with-ngclass/ -->
+                <h3>Ledande bud: {{prettify(highestBidAmount())}} SEK <span [ngClass]="{ 'hidden': timeLeft() <= 0}" class="blink">...</span></h3>
                 <span class="time-left">{{secondsToHms(timeLeft())}} kvar</span>
             </div>
-            <div class="valuation-box">
+            <div class="valuation-box box">
                 @if (auction()?.valuationMin && auction()?.valuationMax) {
                     <span>Ungefärligt värde: {{prettify(auction()?.valuationMin)}} - {{prettify(auction()?.valuationMax)}} kr</span>
                 } @else {
                     <span>Okänt ungefärligt värde</span>
                 }
             </div>
-            <div class="bidding-box">
+            <!-- Hide the bidding form if the auction deadline has passed -->
+            <div class="bidding-box box" [ngClass]="{'hidden': timeLeft() <= 0}">
                 <div>
                     @if (auction()) {
                         <form [formGroup]="newBidForm" (ngSubmit)="bidService.createBid(newBidForm, auction()!.id)">
@@ -38,11 +38,14 @@
                         </form>
                     }
                 </div>
-                <div>
-                    <span>Du kan maximalt buda {{prettify(authService.currentUser()?.availableBalance)}} SEK</span>
-                </div>
+                @if (authService.currentUser()) {
+                    <div>
+                        <span>Du kan maximalt buda {{prettify(authService.currentUser()?.availableBalance)}} SEK</span>
+                    </div>
+                }
             </div>
-            <div class="bid-list">
+            <h3>Bud</h3>
+            <div class="bid-list box">
                 @for (bid of bids(); track $index) {
                     <div class="bid-row">
                         <span>{{bid.pseudonym}}</span>
