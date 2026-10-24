@@ -1,4 +1,20 @@
-<div [routerLink]="['/auction', auction.id]">
-    <p>{{auction.title}}</p>
-    <p>{{auction.modelYear}}</p>
+<div class="card box" [routerLink]="['/auction', auction.id]">
+    <div class="top-box">
+        <p>{{auction.title}}</p>
+        <p>{{auction.modelYear}}</p>
+    </div>
+    <div class="left-right-box">
+        <div class="left-box">
+            <img src="" alt="">
+            @if (auction.bids.length > 0) {
+                <span>Högsta bud: {{prettify(Math.max(... auction.bids.map(a => a.amount)))}} SEK</span>
+            } @else {
+                <span>Inga bud</span>
+            }
+        </div>
+        <div class="right-box">
+            <span>KM: {{prettify(auction.odometerKm) || "?"}}</span>
+            <span>Värdespann: {{prettify(auction.valuationMin) || "?"}} - {{prettify(auction.valuationMax) || "?"}} SEK</span>
+        </div>
+    </div>
 </div>
