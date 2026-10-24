@@ -78,7 +78,7 @@ export class AuctionPage {
     this.auctionService.fetchAuction(parseInt(auctionId)).subscribe(
       {next: (data) => {
         this.auction.set(data.body);
-        this.bids.set(data.body!.bids);
+        this.bids.set(data.body!.bids.sort((a, b) => b.amount - a.amount));
         this.deadline.set(new Date(data.body!.deadline))
       }}
     );
@@ -89,6 +89,6 @@ export class AuctionPage {
     console.log("msg")
     const bid: BidDisplay = JSON.parse(message.body)
     console.log(bid)
-    this.bids.update((bids) => [...bids, bid])
+    this.bids.update((bids) => [bid, ...bids])
   }
 }
