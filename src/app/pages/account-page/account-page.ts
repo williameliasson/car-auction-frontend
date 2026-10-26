@@ -4,6 +4,7 @@ import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import { prettify } from '../../utils';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { OrderService } from '../../services/order-service';
 
 @Component({
   selector: 'app-account-page',
@@ -12,16 +13,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './account-page.scss',
 })
 export class AccountPage {
-  authService = inject(AuthService)
+  authService = inject(AuthService);
+  orderService = inject(OrderService);
+
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute)
   successfulPayment = signal<boolean | null>(null);
+  suggestedDepositSek = 1_000;
 
   prettify = prettify;
 
   ngOnInit(): void {
     this.authService.fetchCurrentUser();
-    const successfulPaymentParam = this.route.snapshot.queryParamMap.get("paymentSuccessful")
+    const successfulPaymentParam = this.route.snapshot.queryParamMap.get("successfulPayment")
     if (successfulPaymentParam != null){
       this.successfulPayment.set(successfulPaymentParam == "true")
     }
@@ -40,5 +44,10 @@ export class AccountPage {
   loginForm = this.fb.group({
     username:       ['',  Validators.required],
     password:       ['', [Validators.required, Validators.minLength(8)]],
+  })
+
+  // Deposit form 
+  depositForm = this.fb.group({
+    amountSek: [this.suggestedDepositSek, Validators.required]
   })
 }

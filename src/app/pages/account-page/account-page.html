@@ -1,7 +1,3 @@
-<p>account-page works!</p>
-<!-- <button (click)="authService.register()">reg</button>
-<button (click)="authService.login()">log</button> -->
-
 <!-- todo: conditionally show registerform or loginform based on users clicks and whether or not the user is logged in already  -->
 <div class="forms">
     <div id="registerform">
@@ -40,6 +36,16 @@
     <div class="accountInfo" >
         <h1>Username: {{authService.currentUser()!.username}}</h1>
         <span>{{authService.currentUser()!.email}}</span>
+        <br>
+        <span>Saldo: {{prettify(authService.currentUser()!.balance)}}</span>
+        <br>
+        <span>Tillgängligt saldo: {{prettify(authService.currentUser()!.availableBalance)}}</span>
+        <br>
+        <form [formGroup]="depositForm" (ngSubmit)="orderService.startDeposit(depositForm)">
+            <label for="amountSek">Att sätta in: </label>
+            <input type="number" name="amountSek" formControlName="amountSek">
+            <button type="submit">Sätt in</button>
+        </form>
         <div>
             @if (this.successfulPayment() != null && this.successfulPayment()) {
                 <span class="payment-successful">Insättning lyckades!</span>
@@ -47,9 +53,5 @@
                 <span class="payment-not-successful">Insättning misslyckades!</span>
             }
         </div>
-        <br>
-        <span>Saldo: {{prettify(authService.currentUser()!.balance)}}</span>
-        <br>
-        <span>Tillgängligt saldo: {{prettify(authService.currentUser()!.availableBalance)}}</span>
     </div>
 }
