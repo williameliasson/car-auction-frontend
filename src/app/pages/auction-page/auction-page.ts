@@ -86,9 +86,7 @@ export class AuctionPage {
   }
 
   onNewBidReceived(message: any){
-    console.log("msg")
     const bid: BidDisplay = JSON.parse(message.body)
-    console.log(bid)
     this.bids.update((bids) => [bid, ...bids])
   }
 }

@@ -2,21 +2,29 @@ import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import { prettify } from '../../utils';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-account-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './account-page.html',
   styleUrl: './account-page.scss',
 })
 export class AccountPage {
   authService = inject(AuthService)
   private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute)
+  successfulPayment = signal<boolean | null>(null);
 
   prettify = prettify;
 
   ngOnInit(): void {
     this.authService.fetchCurrentUser();
+    const successfulPaymentParam = this.route.snapshot.queryParamMap.get("paymentSuccessful")
+    if (successfulPaymentParam != null){
+      this.successfulPayment.set(successfulPaymentParam == "true")
+    }
   }
   // register form
   registerForm = this.fb.group({

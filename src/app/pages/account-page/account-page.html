@@ -40,6 +40,13 @@
     <div class="accountInfo" >
         <h1>Username: {{authService.currentUser()!.username}}</h1>
         <span>{{authService.currentUser()!.email}}</span>
+        <div>
+            @if (this.successfulPayment() != null && this.successfulPayment()) {
+                <span class="payment-successful">Insättning lyckades!</span>
+            } @else if (this.successfulPayment() != null && !this.successfulPayment()) {
+                <span class="payment-not-successful">Insättning misslyckades!</span>
+            }
+        </div>
         <br>
         <span>Saldo: {{prettify(authService.currentUser()!.balance)}}</span>
         <br>
