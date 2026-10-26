@@ -28,8 +28,13 @@
                     <span>Okänt ungefärligt värde</span>
                 }
             </div>
-            <!-- Hide the bidding form if the auction deadline has passed -->
-            <div class="bidding-box box" [ngClass]="{'hidden': timeLeft() <= 0 || requestingUserIsAuctionOwner()}">
+            <!-- Hide the bidding form if the auction deadline has passed, or the user is not authed-->
+            <div class="bidding-box box" [ngClass]="{
+                'hidden': 
+                    timeLeft() <= 0 
+                    || requestingUserIsAuctionOwner()
+                    || !authService.currentUser()
+            }">
                 <div>
                     @if (auction()) {
                         <form [formGroup]="newBidForm" (ngSubmit)="bidService.createBid(newBidForm, auction()!.id)">
