@@ -42,3 +42,13 @@ export const secondsToHms = (seconds: number): string => {
   const hms = new Date(remainderSeconds * 1000).toISOString().substring(11, 19);
   return hms.replace(/^(\d+)/, h => `${Number(h) + days * HOURS_PER_DAY}`.padStart(2, '0'));
 };
+
+export const bidErrorCodes = {
+    "BID_ON_OWN_AUCTION" : "Du kan inte buda på din egen auktion",
+    "AUCTION_PAST_DEADLINE" : "Auktionen har gått ut",
+    "AUCTION_PAID" : "Auktionen är redan betald av vinnaren",
+    "NEGATIVE_BID" : "Negativt bud accepteras ej",
+    "BID_LOWER_THAN_HIGHEST" : "Budet måste vara högre än högst lagda bud",
+    "BID_LARGER_THAN_AVAILABLE_BALANCE" : "Budet överskrider tillgängligt saldo",
+    "OUTBID_SELF": "Du kan inte buda över dig själv",
+} as const;
