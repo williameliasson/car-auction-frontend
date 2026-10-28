@@ -1,13 +1,16 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuctionDisplay, AuctionService, BidDisplay } from '../../services/auction-service';
-import { prettify, secondsToHms } from '../../utils';
+import { prettify, secondsToHms, bidErrorCodes } from '../../utils';
 import { AuthService } from '../../services/auth-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BidService } from '../../services/bid-service';
 import { WebsocketService } from '../../services/websocket-service';
 import { CommonModule } from '@angular/common';
 
+// export type BidErrorCode = "BID_ON_OWN_AUCTION" | "AUCTION_PAST_DEADLINE" | "AUCTION_PAID" | "NEGATIVE_BID" | "BID_LOWER_THAN_HIGHEST" | "BID_LARGER_THAN_AVAILABLE_BALANCE" | "OUTBID_SELF"
+// src: https://stackoverflow.com/questions/71024171/how-to-create-a-typescript-type-based-on-the-keys-values-of-a-dictionary
+export type BidErrorCode = keyof typeof bidErrorCodes;
 @Component({
   selector: 'app-auction-page',
   imports: [ReactiveFormsModule, CommonModule],
@@ -36,6 +39,8 @@ export class AuctionPage {
   requestingUserIsAuctionOwner = computed<boolean>(() => {
     return this.auction()?.ownerPseudonym == this.auction()?.requestingUserPseudonym
   })
+
+  bidError = signal<BidErrorCode | null>(null);
   
   authService = inject(AuthService);
   bidService = inject(BidService)
@@ -44,6 +49,7 @@ export class AuctionPage {
 
   prettify = prettify;
   secondsToHms = secondsToHms;
+  bidErrorCodes = bidErrorCodes;
 
   suggestedBidIncrementAmount = 1000;
   
@@ -71,6 +77,9 @@ export class AuctionPage {
       const now = new Date(Date.now());
       this.timeNow.set(now);
     }, 500);
+
+    this.authService.fetchCurrentUser();
+
     const auctionId: string | null = this.route.snapshot.paramMap.get("id");
     if (auctionId == null) return; // todo: handle error
     this.auctionId.set(parseInt(auctionId));
