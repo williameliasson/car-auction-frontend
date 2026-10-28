@@ -37,7 +37,7 @@
             }">
                 <div>
                     @if (auction()) {
-                        <form [formGroup]="newBidForm" (ngSubmit)="bidService.createBid(newBidForm, auction()!.id)">
+                        <form [formGroup]="newBidForm" (ngSubmit)="bidService.createBid(newBidForm, auction()!.id, this.bidError)">
                             <input type="number" name="amount" formControlName="amount">
                             <button>Buda</button>
                         </form>
@@ -47,6 +47,9 @@
                     <div>
                         <span>Du kan maximalt buda {{prettify(authService.currentUser()?.availableBalance)}} SEK</span>
                     </div>
+                }
+                @if (bidError()) {
+                    <span class="bid-error">{{bidErrorCodes[bidError()!]}}</span>
                 }
             </div>
             <h3>Bud</h3>
