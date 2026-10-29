@@ -39,5 +39,4 @@ There are some parts of the code where I have taken inspiration from other sourc
 ## Known issues
 * The text showing the current available balance does not update if the user's bid on another auction was outbid, causing that bid amount to be unlocked.
 * CSRF is not configured.
-* The button for creating an auction can be pressed twice and produces duplicate auctions (but can get different valuations, funny enough). The solution for this is to lock the button after a single press, wait for response, and if theres an error in the response, only then unlock the button to be pressed again.
 * Registration, Login and creating an auction does not show the user what went wrong in case of an error with the POST request.
