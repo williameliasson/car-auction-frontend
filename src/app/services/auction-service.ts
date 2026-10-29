@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { env } from '../../env/env';
 import { FormGroup } from '@angular/forms';
 import { form } from '@angular/forms/signals';
@@ -59,7 +59,9 @@ export class AuctionService {
     return this.http.get<AuctionDisplay>(env.apiUrl + "/auctions/" + id, {withCredentials: true, observe: "response"})
   }
 
-  createAuction(form: FormGroup){
+  createAuction(form: FormGroup, lockCreateButton: WritableSignal<boolean>){
+    // lock the button directly upon starting the POST request. Unlock if returned code is not 201
+    lockCreateButton.set(true);
     const dateFixedForm = {
       ...form.value,
       deadline: new Date(form.value.deadline).toISOString()
@@ -68,6 +70,9 @@ export class AuctionService {
       next: (response) => {
         if (!response) return;
         this.router.navigate(["/auction", response.id])
+      },
+      error: (respone) => {
+        lockCreateButton.set(false);
       }
     })
   }

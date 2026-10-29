@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuctionService } from '../../services/auction-service';
 import { MakeService } from '../../services/make-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-new-auction-page',
@@ -12,7 +13,9 @@ import { MakeService } from '../../services/make-service';
 export class NewAuctionPage {
   makeService = inject(MakeService);
   auctionService = inject(AuctionService);
+  authService = inject(AuthService);
   private fb = inject(FormBuilder);
+  lockCreateButton = signal<boolean>(false);
 
   ngOnInit(): void {
     this.makeService.fetchCarMakes();
