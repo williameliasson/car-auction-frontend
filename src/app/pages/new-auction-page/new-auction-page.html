@@ -1,6 +1,6 @@
 <h1>Skapa ny auktion</h1>
 <div>
-    <form [formGroup]="newAuctionForm" (ngSubmit)="auctionService.createAuction(newAuctionForm)">
+    <form [formGroup]="newAuctionForm" (ngSubmit)="auctionService.createAuction(newAuctionForm, lockCreateButton)">
         <label for="title">Titel: </label>
         <input type="text" name="title" id="title" formControlName="title">
         <br>
@@ -33,6 +33,6 @@
         <input type="number" name="odometerKm" id="odometerKm" formControlName="odometerKm">
         <br>
 
-        <button type="submit">Skapa</button>
+        <button [disabled]="newAuctionForm.invalid || !authService.currentUser() || lockCreateButton()" type="submit">Skapa</button>
     </form>
 </div>
