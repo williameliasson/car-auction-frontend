@@ -2,7 +2,7 @@
 <div class="window" [ngClass]="{'user-is-owner': requestingUserIsAuctionOwner()}">
     <!-- top bar of the "window". ca 10% height-->
     <div class="top-bar">
-        <h2>{{auction()?.title}}</h2>
+        <h2>{{auction()?.title}} {{auction()?.makeName}}</h2>
         <h2>{{auction()?.modelYear}}</h2>
     </div>
     
@@ -12,6 +12,7 @@
         <div class="left-box"> 
             <img src="/images/youssef-d-DkGUn0Y1VzA-unsplash.jpg" alt="">
             <p class="box">{{auction()?.description}}</p>
+            <p>Mätarställning: {{auction()?.odometerKm || '?'}} km</p>
         </div>
         
         <!-- right part ca 60% of width. Has -->
